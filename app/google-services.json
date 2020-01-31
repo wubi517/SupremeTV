@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1069847557317",
+    "firebase_url": "https://redemption-9f4ac.firebaseio.com",
+    "project_id": "redemption-9f4ac",
+    "storage_bucket": "redemption-9f4ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069847557317:android:e7a778e28c528ac7376cac",
+        "android_client_info": {
+          "package_name": "com.gold.kds517.supremetv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069847557317-mbbetr1r2r3jmoonbsgia169f02ttfu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEgV6RREMrDE0znMFQglP5WQUWvTpF8Is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069847557317-mbbetr1r2r3jmoonbsgia169f02ttfu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
