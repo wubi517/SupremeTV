@@ -434,6 +434,7 @@ public class VideoPlayActivity extends AppCompatActivity implements  SeekBar.OnS
                         paint.setTypeface(Typeface.DEFAULT);
                         Rect result = new Rect();
                         paint.getTextBounds(rss_feed, 0, rss_feed.length(), result);
+                        float width = paint.measureText(rss_feed, 0, rss_feed.length());
                         if(rss.equalsIgnoreCase(rss_feed)){
                             ly_header.setVisibility(View.GONE);
 //                            image_icon.setVisibility(View.GONE);
@@ -445,7 +446,7 @@ public class VideoPlayActivity extends AppCompatActivity implements  SeekBar.OnS
                             ly_header.setVisibility(View.VISIBLE);
                         }
 
-                        int divide = (MyApp.SCREEN_WIDTH)/Utils.dp2px(this,result.width());
+                        int divide = (MyApp.SCREEN_WIDTH)/Utils.dp2px(this,(int) width);
                         Log.e("divide",divide+"");
                         if(divide>=1){
                             if(is_msg){
