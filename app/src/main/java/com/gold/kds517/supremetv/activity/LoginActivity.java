@@ -127,8 +127,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             pass_txt.setText(password);
             checkBox.setChecked(true);
         }
-//        name_txt.setText("579486");
-//        pass_txt.setText("247915");
+//        name_txt.setText("murray1958");
+//        pass_txt.setText("mH3llfGJva");
         TextView mac_txt = findViewById(R.id.login_mac_address);
         mac_txt.setText(MyApp.mac_address);
         TextView version_txt = findViewById(R.id.app_version_code);

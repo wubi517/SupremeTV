@@ -5,6 +5,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
@@ -39,6 +44,7 @@ import com.gold.kds517.supremetv.apps.MyApp;
 import com.gold.kds517.supremetv.dialog.PackageDlg;
 import com.gold.kds517.supremetv.models.EPGChannel;
 import com.gold.kds517.supremetv.models.EPGEvent;
+import com.gold.kds517.supremetv.utils.Utils;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -377,7 +383,6 @@ public class LiveExoPlayActivity extends AppCompatActivity implements  SeekBar.O
     }
 
     private void getRespond(){
-        if (!MyApp.is_announce_enabled) return;
         String url = "";
         switch (MyApp.firstServer){
             case first:
@@ -408,6 +413,13 @@ public class LiveExoPlayActivity extends AppCompatActivity implements  SeekBar.O
                     String finalMsg = msg;
                     runOnUiThread(()->{
                         String rss_feed = "                 "+ finalMsg +"                 ";
+                        Paint paint = new Paint();
+                        paint.setTextSize(25);
+                        paint.setColor(Color.BLACK);
+                        paint.setStyle(Paint.Style.FILL);
+                        paint.setTypeface(Typeface.DEFAULT);
+                        Rect result = new Rect();
+                        paint.getTextBounds(rss_feed, 0, rss_feed.length(), result);
                         if(rss.equalsIgnoreCase(rss_feed)){
                             lay_header.setVisibility(View.GONE);
 //                            image_icon.setVisibility(View.GONE);
@@ -419,15 +431,36 @@ public class LiveExoPlayActivity extends AppCompatActivity implements  SeekBar.O
                             lay_header.setVisibility(View.VISIBLE);
                         }
 
-                        if(is_msg){
-                            lay_header.setVisibility(View.VISIBLE);
-                            txt_rss.setText(rss);
-                            Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.bottom_to_top);
-                            txt_rss.clearAnimation();
-                            txt_rss.startAnimation(bottomToTop);
+                        int divide = (MyApp.SCREEN_WIDTH)/ Utils.dp2px(this,result.width());
+                        Log.e("divide",divide+"");
+                        if(divide>=1){
+                            if(is_msg){
+                                lay_header.setVisibility(View.VISIBLE);
+                                txt_rss.setText(rss);
+                                Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.bottom_to_top);
+                                txt_rss.clearAnimation();
+                                txt_rss.startAnimation(bottomToTop);
+                            }else {
+                                lay_header.setVisibility(View.GONE);
+                            }
                         }else {
-                            lay_header.setVisibility(View.GONE);
+                            if(is_msg){
+                                lay_header.setVisibility(View.VISIBLE);
+                                for(int i =0;i<divide+1;i++){
+                                    rss_feed += rss_feed;
+                                }
+                                Log.e("rss2",rss);
+//                            txt_rss.setText(rss);
+//                            txt_rss.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.marquee1));
+                                txt_rss.setSelected(true);
+                                txt_rss.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                                txt_rss.setText(rss);
+                            }else {
+                                lay_header.setVisibility(View.GONE);
+                            }
                         }
+
+
                         rssTimer();
                     });
                 } else {

@@ -16,7 +16,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             tools:ignore="true">
-        <com.it_tech613.tv.ijklib.widget.media.IjkVideoView
+        <com.gold.kds517.supremetv.ijklib.widget.media.IjkVideoView
                 android:id="@+id/surface_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

@@ -5,6 +5,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +19,8 @@ import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
@@ -321,6 +327,13 @@ public class SeriesExoPlayActivity extends AppCompatActivity implements  SeekBar
                     String finalMsg = msg;
                     runOnUiThread(()->{
                         String rss_feed = "                 "+ finalMsg +"                 ";
+                        Paint paint = new Paint();
+                        paint.setTextSize(25);
+                        paint.setColor(Color.BLACK);
+                        paint.setStyle(Paint.Style.FILL);
+                        paint.setTypeface(Typeface.DEFAULT);
+                        Rect result = new Rect();
+                        paint.getTextBounds(rss_feed, 0, rss_feed.length(), result);
                         if(rss.equalsIgnoreCase(rss_feed)){
                             ly_header.setVisibility(View.GONE);
 //                            image_icon.setVisibility(View.GONE);
@@ -332,15 +345,36 @@ public class SeriesExoPlayActivity extends AppCompatActivity implements  SeekBar
                             ly_header.setVisibility(View.VISIBLE);
                         }
 
-                        if(is_msg){
-                            ly_header.setVisibility(View.VISIBLE);
-                            txt_rss.setText(rss);
-                            Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.bottom_to_top);
-                            txt_rss.clearAnimation();
-                            txt_rss.startAnimation(bottomToTop);
+                        int divide = (MyApp.SCREEN_WIDTH)/Utils.dp2px(this,result.width());
+                        Log.e("divide",divide+"");
+                        if(divide>=1){
+                            if(is_msg){
+                                ly_header.setVisibility(View.VISIBLE);
+                                txt_rss.setText(rss);
+                                Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.bottom_to_top);
+                                txt_rss.clearAnimation();
+                                txt_rss.startAnimation(bottomToTop);
+                            }else {
+                                ly_header.setVisibility(View.GONE);
+                            }
                         }else {
-                            ly_header.setVisibility(View.GONE);
+                            if(is_msg){
+                                ly_header.setVisibility(View.VISIBLE);
+                                for(int i =0;i<divide+1;i++){
+                                    rss_feed += rss_feed;
+                                }
+                                Log.e("rss2",rss);
+//                            txt_rss.setText(rss);
+//                            txt_rss.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.marquee1));
+                                txt_rss.setSelected(true);
+                                txt_rss.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                                txt_rss.setText(rss);
+                            }else {
+                                ly_header.setVisibility(View.GONE);
+                            }
                         }
+
+
                         rssTimer();
                     });
                 } else {
@@ -350,9 +384,8 @@ public class SeriesExoPlayActivity extends AppCompatActivity implements  SeekBar
                 e.printStackTrace();
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
-
     }
     int rss_time;
     private void rssTimer() {
