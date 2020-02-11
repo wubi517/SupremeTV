@@ -338,7 +338,7 @@ public class LiveIjkPlayActivity extends AppCompatActivity implements  SeekBar.O
 //                            txt_rss.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.marquee1));
                                 txt_rss.setSelected(true);
                                 txt_rss.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                                txt_rss.setText(rss);
+                                txt_rss.setText(rss_feed);
                             }else {
                                 lay_header.setVisibility(View.GONE);
                             }
