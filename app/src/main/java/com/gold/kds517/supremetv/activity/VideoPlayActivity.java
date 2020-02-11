@@ -447,8 +447,7 @@ public class VideoPlayActivity extends AppCompatActivity implements  SeekBar.OnS
                         }
 
                         int divide = (MyApp.SCREEN_WIDTH)/Utils.dp2px(this,(int) width);
-                        Log.e("divide",divide+"");
-                        if(divide>=1){
+                        if(divide>1){
                             if(is_msg){
                                 ly_header.setVisibility(View.VISIBLE);
                                 txt_rss.setText(rss);
